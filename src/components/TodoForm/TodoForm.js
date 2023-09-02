@@ -15,11 +15,12 @@ function TodoForm(props) {
 
   return (
     <div>
-      <h3>할일을 추가하세요 :D</h3>
       <input onChange={onChange} value={text}></input>
       <button type="button" onClick={onClick}>
         추가
       </button>
+      <button>수정</button>
+      <button>삭제</button>
     </div>
   );
 }
