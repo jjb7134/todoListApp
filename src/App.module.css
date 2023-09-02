@@ -1,0 +1,10 @@
+.todoList {
+  text-align: center;
+  display: block;
+  margin: 10% auto;
+  border: 2px;
+  border-style: groove;
+  border-radius: 5%;
+  width: 40%;
+  /* height: 100; */
+}
