@@ -15,6 +15,7 @@ function TodoForm(props) {
 
   return (
     <div>
+      <h3>할일을 추가해주세요</h3>
       <input onChange={onChange} value={text}></input>
       <button type="button" onClick={onClick}>
         추가
