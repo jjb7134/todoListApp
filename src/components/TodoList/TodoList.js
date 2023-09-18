@@ -1,3 +1,4 @@
+import TodoHeader from "../TodoHeader/TodoHeader";
 import Card from "../UI/Card";
 import classes from "./TodoList.module.css";
 
@@ -17,6 +18,8 @@ function TodoList(props) {
   return (
     <section className={classes.meals}>
       <Card>
+        <TodoHeader />
+        <hr></hr>
         <ul>
           {props.todolist.map((item, index) => (
             <li key={index}>

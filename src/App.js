@@ -12,7 +12,6 @@ const Div = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   text-align: center;
-  border-radius: 15%;
   margin: 100px auto 20px;
   width: 40%;
 `;
@@ -60,8 +59,6 @@ function App() {
   return (
     <Fragment>
       <Div>
-        <TodoHeader />
-        <hr></hr>
         <TodoForm onclick={onclick}></TodoForm>
       </Div>
 
