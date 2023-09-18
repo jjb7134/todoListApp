@@ -8,9 +8,14 @@ function TodoForm(props) {
     // console.log(e.target.value);
   };
   const onClick = (e) => {
-    e.preventDefault();
-    props.onclick(text);
-    setText("");
+    // 공란 Validation rule 추가
+    if (text === "") {
+      alert("1자 이상은 입력해야해요");
+    } else {
+      e.preventDefault();
+      props.onclick(text);
+      setText("");
+    }
   };
 
   return (
@@ -20,8 +25,6 @@ function TodoForm(props) {
       <button type="button" onClick={onClick}>
         추가
       </button>
-      <button>수정</button>
-      <button>삭제</button>
     </div>
   );
 }

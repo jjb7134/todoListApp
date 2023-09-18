@@ -1,26 +1,26 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoHeader from "./components/TodoHeader/TodoHeader";
-import TodoList from "./components/TodoList/TodoList";
 import { styled } from "styled-components";
+import Lists from "./components/TodoList/Lists";
+import TodoList from "./components/TodoList/TodoList";
 
 // 스타일 컴포넌트 영역
 const Div = styled.div`
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
   text-align: center;
-  border-style: dashed;
   border-radius: 15%;
-  margin: 20% auto;
-  width: 50%;
+  margin: 100px auto 20px;
+  width: 40%;
 `;
 
 function App() {
   const [todolist, setTodolist] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // 수정 중인 아이템의 인덱스
   const [editValue, setEditValue] = useState(""); // 수정 중인 아이템의 값
-
-  const onclick = (newitem) => {
-    setTodolist([...todolist, newitem]);
-  };
 
   const onDeleteHandler = (props) => {
     let updatedList = [...todolist];
@@ -38,8 +38,13 @@ function App() {
   const onUpdateHandler = () => {
     let updatedList = [...todolist];
     updatedList[editIndex] = editValue;
-    setTodolist(updatedList);
-    resetEditing(); // 편집 모드 종료
+    // 수정간 공란 Validation rule 추가
+    if (updatedList[editIndex] === "") {
+      alert("1자 이상은 입력해야해요.");
+    } else {
+      setTodolist(updatedList);
+      resetEditing(); // 편집 모드 종료
+    }
   };
 
   // 편집 모드 종료 함수
@@ -48,23 +53,33 @@ function App() {
     setEditValue("");
   };
 
+  const onclick = (newitem) => {
+    setTodolist([...todolist, newitem]);
+  };
+
   return (
-    <Div>
-      <TodoHeader></TodoHeader>
-      <hr></hr>
-      <TodoForm onclick={onclick}></TodoForm>
-      <hr></hr>
-      <TodoList
-        todolist={todolist}
-        onDeleteHandler={onDeleteHandler}
-        onEditHandler={onEditHandler}
-        editIndex={editIndex}
-        editValue={editValue}
-        onUpdateHandler={onUpdateHandler}
-        resetEditing={resetEditing}
-        setEditValue={setEditValue} // 이 줄을 추가합니다.
-      ></TodoList>
-    </Div>
+    <Fragment>
+      <Div>
+        <TodoHeader />
+        <hr></hr>
+        <TodoForm onclick={onclick}></TodoForm>
+      </Div>
+
+      <main>
+        <TodoList
+          todolist={todolist}
+          onDeleteHandler={onDeleteHandler}
+          onEditHandler={onEditHandler}
+          editIndex={editIndex}
+          editValue={editValue}
+          onUpdateHandler={onUpdateHandler}
+          resetEditing={resetEditing}
+          setEditValue={setEditValue}
+        />
+        {/* <Lists>
+        </Lists> */}
+      </main>
+    </Fragment>
   );
 }
 
