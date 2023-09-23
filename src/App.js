@@ -4,6 +4,7 @@ import TodoHeader from "./components/TodoHeader/TodoHeader";
 import { styled } from "styled-components";
 import Lists from "./components/TodoList/Lists";
 import TodoList from "./components/TodoList/TodoList";
+import CompleteList from "./components/TodoList/CompleteList";
 
 // 스타일 컴포넌트 영역
 const Div = styled.div`
@@ -20,6 +21,7 @@ function App() {
   const [todolist, setTodolist] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // 수정 중인 아이템의 인덱스
   const [editValue, setEditValue] = useState(""); // 수정 중인 아이템의 값
+  const [completeList, setCompleteList] = useState([]);
 
   const onDeleteHandler = (props) => {
     let updatedList = [...todolist];
@@ -33,7 +35,7 @@ function App() {
     setEditValue(todolist[index]);
   };
 
-  // 수정 입력 완료 후 '완료' 버튼 클릭 시 실행될 함수
+  // 수정 입력 완료 후 '수정 완료' 버튼 클릭 시 실행될 함수
   const onUpdateHandler = () => {
     let updatedList = [...todolist];
     updatedList[editIndex] = editValue;
@@ -52,6 +54,15 @@ function App() {
     setEditValue("");
   };
 
+  // 완료된 항목들 넘기는 함수
+  const onCompleteHandler = (index) => {
+    const completedItem = todolist[index];
+    // 완료 아이템 추가하기
+    setCompleteList([...completeList, completedItem]);
+    // 기존 리스트 아이템 제거하기
+    setTodolist(todolist.filter((_, i) => i !== index));
+  };
+
   const onclick = (newitem) => {
     setTodolist([...todolist, newitem]);
   };
@@ -59,7 +70,7 @@ function App() {
   return (
     <Fragment>
       <Div>
-        <TodoForm onclick={onclick}></TodoForm>
+        <TodoForm onclick={onclick} />
       </Div>
 
       <main>
@@ -72,9 +83,11 @@ function App() {
           onUpdateHandler={onUpdateHandler}
           resetEditing={resetEditing}
           setEditValue={setEditValue}
+          onCompleteHandler={onCompleteHandler}
         />
         {/* <Lists>
         </Lists> */}
+        <CompleteList completeList={completeList} />
       </main>
     </Fragment>
   );
